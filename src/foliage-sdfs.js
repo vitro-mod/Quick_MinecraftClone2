@@ -289,6 +289,8 @@ export const foliage_sdfs = (() => {
   function PALM_TREE1(xPos, yPos, zPos) {
     let noiseID = 100;
 
+    const numLeaves = 20;
+
     const treeSDF = new SDF(new THREE.Vector3(xPos, yPos, zPos));
     const angle1 = (0.01 + _N_Foliage.Get(xPos, noiseID++, zPos) * 0.02) * 2 * Math.PI;
     const angle2 = _N_Foliage.Get(xPos, noiseID++, zPos) * 2 * Math.PI;
@@ -317,11 +319,10 @@ export const foliage_sdfs = (() => {
       if (level > 3) {
         _AddLeaf(base, height, 1, new THREE.Quaternion(), level);
 
-        _TMP_Q2.setFromAxisAngle(_Y_AXIS, 0.33 * 2.0 * Math.PI);
-        _AddLeaf(base, height, 1, _TMP_Q2.clone(), level);
-
-        _TMP_Q2.setFromAxisAngle(_Y_AXIS, 0.66 * 2.0 * Math.PI);
-        _AddLeaf(base, height, 1, _TMP_Q2.clone(), level);
+        for (let i = 1; i < numLeaves; i++) {
+          _TMP_Q2.setFromAxisAngle(_Y_AXIS, i * (1 / numLeaves) * 2.0 * Math.PI);
+          _AddLeaf(base, height, 1, _TMP_Q2.clone(), level);
+        }
         return;
       }
 
