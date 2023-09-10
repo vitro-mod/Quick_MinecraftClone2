@@ -210,6 +210,11 @@ export const player_controller = (() => {
       ui.CycleBuildIcon_(dir);
     }
 
+    ShowMessage_(text){
+      const ui = this.FindEntity('ui').GetComponent('UIController');
+      ui.ShowMessage(text);
+    }
+
     Update(timeInSeconds) {
       const controlObject = this.controls_.getObject();
 

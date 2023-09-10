@@ -14,6 +14,7 @@ export const ui_controller = (() => {
     InitEntity() {
       this.iconBar_ = document.getElementById('icon-bar');
       this.icons_ = [];
+      this.messages_ = [];
 
       const blockTypes = [
           'dirt', 'stone', 'sand', 'grass', 'snow', 'moon', 'tree_bark', 'tree_leaves'
@@ -74,6 +75,19 @@ export const ui_controller = (() => {
           topic: 'ui.toolChanged',
           value: this.toolTypes_[this.toolIndex_],
       });
+    }
+
+    ShowMessage(text) {
+      this.messages_.push(text);
+
+      let newMsg = document.createElement('div');
+      newMsg.innerText = text;
+      document.querySelector('#messages').appendChild(newMsg);
+      
+      setTimeout(function() {
+        newMsg.remove();
+        this.messages_.unshift();
+      }, 5000);
     }
   };
 
